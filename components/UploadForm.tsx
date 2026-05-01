@@ -12,7 +12,7 @@ import VoiceSelector from './VoiceSelector';
 import LoadingOverlay from './LoadingOverlay';
 import { useAuth } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
-import {parsePDFFile} from "@/lib/utils";
+import {parsePDFFile} from "@/lib/pdf-utils";
 import {
     ACCEPTED_PDF_TYPES,
     ACCEPTED_IMAGE_TYPES,
@@ -26,7 +26,7 @@ import {
     FormMessage,
 } from '@/components/ui/form';
 // import { toast } from 'sonner';
-// import {upload} from "@vercel/blob/client";
+import {upload} from "@vercel/blob/client";
 
 
 const UploadForm = () => {
