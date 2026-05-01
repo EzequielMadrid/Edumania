@@ -79,6 +79,7 @@ export interface BookCardProps {
     author: string;
     coverURL: string;
     slug: string;
+    authorImageURL: string
 }
 
 export interface Messages {
@@ -138,4 +139,15 @@ export interface StartSessionResult {
 export interface EndSessionResult {
     success: boolean;
     error?: string;
+}
+
+export interface CreateBookResult {
+    success: boolean;
+    data?: {
+        _id: string;
+        slug: string;
+    };
+    error?: string;
+    isBillingError?: boolean;
+    alreadyExists?: boolean;
 }

@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Upload, ImageIcon } from 'lucide-react';
 import { UploadSchema } from '@/lib/zod';
-import {checkBookExists, createBook, saveBookSegments} from "@/lib/actions/book.actions";
+import createBook, {checkBookExists, saveBookSegments} from "@/lib/actions/book.actions";
 import { BookUploadFormValues } from '@/types';
 import FileUploader from './FileUploader';
 import VoiceSelector from './VoiceSelector';
@@ -25,7 +25,7 @@ import {
     FormLabel,
     FormMessage,
 } from '@/components/ui/form';
-// import { toast } from 'sonner';
+import { toast } from 'sonner';
 import {upload} from "@vercel/blob/client";
 
 
@@ -132,10 +132,17 @@ const UploadForm = () => {
                 return;
             }
 
-            if (book.alreadyExists) {
+            if (book.alreadyExists && book.data?.slug) {
                 toast.info('Book with same title already exists.');
                 form.reset();
                 router.push(`/books/${book.data.slug}`);
+                // another option for push Function
+                // router.push(`/books/${(book.data as { slug: string }).slug}`);
+                return;
+            }
+
+            if (!book.data?._id) {
+                toast.error('Book ID not found');
                 return;
             }
 
